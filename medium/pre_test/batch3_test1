@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+
+#define ull long long
+#define mod 1000000007
+#define minn LONG_MIN
+#define maxx LONG_MAX
+
+using namespace std;
+
+void solve(){   
+    int W;
+    cin >> W;
+    int count = 0;
+    long long twoW = 2LL * W;
+
+    for (long long N = 1; N * N <= twoW; ++N) {
+        if (twoW % N != 0) continue;
+
+        long long t1 = N;
+        long long t2 = twoW / N;
+
+        // First divisor as N
+        long long t = twoW / t1;
+        if ((t - t1 + 1) % 2 == 0) {
+            long long X = (t - t1 + 1) / 2;
+            if (X >= 1) count++;
+        }
+
+        // Second divisor as N (avoid double-counting if t1 == t2)
+        if (t1 != t2) {
+            t = twoW / t2;
+            if ((t - t2 + 1) % 2 == 0) {
+                long long X = (t - t2 + 1) / 2;
+                if (X >= 1) count++;
+            }
+        }
+    }
+
+    cout << count << '\n';
+}
+
+int main() {
+    ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+    int t; cin >> t;
+    while(t--) solve();
+    return 0;
+}
